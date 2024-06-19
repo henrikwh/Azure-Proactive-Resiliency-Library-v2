@@ -62,6 +62,12 @@ Function Invoke-ValidateKqlComment([array]$filearray) {
         $kqlresult.Description = "The KQL query is invalid."
         $kqlresult.Error = $error[0]
       }
+         # trying to make penguins happy, ensuring camelCase of recommendationId
+      elseif(-not ($content -match 'project\s+recommendationId.+name.+id.+tags.+param1')) {
+          $kqlresult.Result = "FAIL"
+          $kqlresult.Description = "Pattern should be: project recommendationId=, name=, id=, tags=, param1="
+          $kqlresult.Error = $error[0]
+       }
       else{
         $kqlresult.Result = "PASS"
         $kqlresult.Description = "The KQL query is valid."
